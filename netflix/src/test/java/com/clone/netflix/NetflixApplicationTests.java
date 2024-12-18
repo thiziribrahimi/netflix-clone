@@ -1,10 +1,10 @@
-package com.cloneNetflix.clone;
+package com.clone.netflix;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CloneApplicationTests {
+class NetflixApplicationTests {
 
 	@Test
 	void contextLoads() {
