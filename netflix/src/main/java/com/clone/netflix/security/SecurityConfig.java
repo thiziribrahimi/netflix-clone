@@ -35,7 +35,10 @@ public class SecurityConfig {
         http.csrf().disable() // Désactive la protection CSRF pour simplifier les tests
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/movies/**").permitAll() // Accessible à tous (lecture des films)
-                .requestMatchers("/admin/**").hasRole("ADMIN") // Accessible uniquement aux admins
+                .requestMatchers("/admin/**",
+                					"/swagger-ui.html",
+                					"/swagger-ui/**",
+                	    			"/v3/api-docs/**").hasRole("ADMIN") // Accessible uniquement aux admins
                 .anyRequest().authenticated()
             )
             .httpBasic(); // Authentification basique pour tester
