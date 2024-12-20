@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Import pour ngModel
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,28 +10,12 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-login',
   standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
-  template: `
-    <div class="container mt-5">
-      <h2>Connexion</h2>
-      <form (ngSubmit)="onLogin()">
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Nom d'utilisateur</mat-label>
-          <input matInput [(ngModel)]="username" name="username" required>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Mot de passe</mat-label>
-          <input matInput type="password" [(ngModel)]="password" name="password" required>
-        </mat-form-field>
-
-        <button mat-raised-button color="primary" type="submit">Se connecter</button>
-      </form>
-    </div>
-  `
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  username = '';
-  password = '';
+  username: string = '';
+  password: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -39,10 +23,14 @@ export class LoginComponent {
     this.authService.login(this.username, this.password).subscribe(
       (success) => {
         if (success) {
-          this.router.navigate(['/']);
+          this.router.navigate(['/']); // Redirige vers la page d'accueil après connexion
         } else {
           alert('Échec de la connexion. Vérifiez vos identifiants.');
         }
+      },
+      (error) => {
+        console.error('Erreur lors de la connexion:', error);
+        alert('Une erreur est survenue. Réessayez plus tard.');
       }
     );
   }

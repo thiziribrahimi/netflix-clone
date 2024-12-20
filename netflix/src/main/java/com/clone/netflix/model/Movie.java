@@ -29,6 +29,8 @@ public class Movie {
     private String description;
     private String videoUrl;
     
+    private String imageUrl;
+    
     @ElementCollection // Indique une liste simple (categories sera une table jointe)
     @CollectionTable(name = "movie_categories", joinColumns = @JoinColumn(name = "movie_id"))
     @Column(name = "category") // Nom de la colonne pour les catégories
@@ -117,5 +119,13 @@ public class Movie {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+    
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

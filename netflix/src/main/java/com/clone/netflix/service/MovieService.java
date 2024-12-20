@@ -1,9 +1,12 @@
 package com.clone.netflix.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.clone.netflix.model.Movie;
 import com.clone.netflix.repository.MovieRepository;
@@ -24,7 +27,6 @@ public class MovieService {
         return movieRepository.findById(id).orElse(null);
     }
 
-    // Ajouter un nouveau film avec validations
     @Transactional
     public Movie addMovie(Movie movie) {
         // Validation des champs obligatoires
@@ -41,13 +43,31 @@ public class MovieService {
             throw new IllegalArgumentException("L'URL de la vidéo est obligatoire.");
         }
 
-        // Vérification des catégories (si nécessaire)
-        if (movie.getCategories() == null || movie.getCategories().isEmpty()) {
-            throw new IllegalArgumentException("Le film doit appartenir à au moins une catégorie.");
-        }
-
         // Sauvegarde dans la base de données
         return movieRepository.saveAndFlush(movie);
+    }
+    
+    public String saveImage(MultipartFile image) {
+        try {
+            // Chemin de stockage
+            String uploadDir = "uploads/images/";
+            File directory = new File(uploadDir);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Nom unique pour le fichier
+            String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+
+            // Sauvegarde du fichier
+            File dest = new File(uploadDir + fileName);
+            image.transferTo(dest);
+
+            // Retourner l'URL relative du fichier
+            return "/uploads/images/" + fileName;
+        } catch (IOException e) {
+            throw new RuntimeException("Échec de l'enregistrement de l'image", e);
+        }
     }
 
     public void deleteMovie(Long id) {

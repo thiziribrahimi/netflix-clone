@@ -1,1 +1,39 @@
-<p>movie-list works!</p>
+<nav class="navbar">
+  <img src="assets/images/Netflix.png" alt="Netflix Clone" class="logo" />
+  <div class="nav-links">
+    <a routerLink="/" class="nav-link" routerLinkActive="active">Accueil</a>
+    <a routerLink="/movies" class="nav-link" routerLinkActive="active">Films</a>
+    <a routerLink="/series" class="nav-link" routerLinkActive="active">Séries</a>
+  </div>
+</nav>
+
+<div class="search-and-filter-container">
+  <!-- Barre de recherche -->
+  <input
+    type="text"
+    placeholder="Rechercher un film..."
+    [(ngModel)]="searchQuery"
+    class="search-bar"
+    (input)="filterMovies()"
+  />
+
+  <!-- Filtrage par catégories -->
+  <select [(ngModel)]="selectedCategory" (change)="filterByCategory()" class="filter-dropdown">
+    <option value="">Toutes les catégories</option>
+    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+  </select>
+</div>
+
+<div class="grid-container">
+  <div *ngFor="let movie of filteredMovies" class="grid-item">
+    <div class="card">
+      <img [src]="movie.imageUrl" class="card-img-top" alt="Image de {{ movie.title }}" />
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.title }}</h5>
+        <p class="card-text">{{ movie.description | slice: 0:100 }}...</p>
+        <button class="btn btn-primary" [routerLink]="['/movies', movie.id]">Détails</button>
+        <button class="btn btn-secondary" (click)="addToFavorites(movie)">Ajouter aux favoris</button>
+      </div>
+    </div>
+  </div>
+</div>

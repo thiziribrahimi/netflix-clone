@@ -1,23 +1,16 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, MatToolbarModule],
+  imports: [RouterModule, CommonModule], // Importez RouterModule pour le routage
   template: `
-    <mat-toolbar color="primary">
-      <span>Netflix</span>
-      <span class="spacer"></span>
-      <a mat-button routerLink="/">Accueil</a>
-      <a mat-button routerLink="/login">Connexion</a>
-    </mat-toolbar>
     <router-outlet></router-outlet>
   `,
-  styles: [`
-    .spacer { flex: 1 1 auto; }
-    mat-toolbar { margin-bottom: 20px; }
-  `]
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {}
+export class AppComponent {
+  title = 'Netflix Clone';
+}

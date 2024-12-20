@@ -1,9 +1,8 @@
 export interface Movie {
-    id: number;
-    title: string;
-    genre: string;
-    description: string;
-    videoUrl: string;
-    categories: string[];
-  }
-  
+  id: number;
+  title: string;
+  description: string;
+  genre: string;
+  videoUrl: string;
+  imageUrl: string; // Propriété pour l'image
+}

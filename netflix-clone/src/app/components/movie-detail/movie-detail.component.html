@@ -1,1 +1,27 @@
-<p>movie-detail works!</p>
+<nav class="navbar">
+  <img src="assets/images/Netflix.png" alt="Netflix Clone" class="logo" />
+  <div class="nav-links">
+    <a routerLink="/" class="nav-link" routerLinkActive="active">Accueil</a>
+    <a routerLink="/movies" class="nav-link" routerLinkActive="active">Films</a>
+    <a routerLink="/series" class="nav-link" routerLinkActive="active">Séries</a>
+  </div>
+</nav>
+
+<div class="movie-detail-container">
+  <div class="movie-detail-card">
+    <!-- Image du film -->
+    <div class="movie-detail-image">
+      <img [src]="movie.imageUrl" alt="Image de {{ movie.title }}" />
+    </div>
+
+    <!-- Informations sur le film -->
+    <div class="movie-detail-info">
+      <h1 class="movie-title">{{ movie.title }}</h1>
+      <p class="movie-genre"><strong>Genre :</strong> {{ movie.genre }}</p>
+      <p class="movie-description">{{ movie.description }}</p>
+
+      <!-- Bouton retour -->
+      <button mat-button class="btn-return" (click)="goBack()">Retour</button>
+    </div>
+  </div>
+</div>

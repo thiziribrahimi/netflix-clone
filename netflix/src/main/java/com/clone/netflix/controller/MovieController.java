@@ -1,8 +1,13 @@
 package com.clone.netflix.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +17,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.clone.netflix.model.Movie;
 import com.clone.netflix.service.MovieService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,6 +39,7 @@ public class MovieController {
     @Operation(summary = "Récupérer tous les films", description = "Retourne la liste complète des films disponibles.")
     @GetMapping
     public List<Movie> getMovies(@RequestParam(value = "category", required = false) String category) {
+    	System.out.println("################Demande de la liste des films");
         if (category != null) {
             return movieService.getMoviesByCategory(category);
         }
@@ -43,13 +52,24 @@ public class MovieController {
         return movieService.getMovieById(id);
     }
     
-    // Réservé aux admins pour ajouter un film
     @Operation(summary = "Ajouter un nouveau film", description = "Permet aux administrateurs d'ajouter un nouveau film.")
     @Secured("ROLE_ADMIN")
-    @PostMapping
-    public Movie addMovie(@RequestBody Movie movie) {
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public Movie addMovie(
+        @RequestPart("movie") String movieJson, 
+        @RequestPart("image") MultipartFile image
+    ) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Movie movie = objectMapper.readValue(movieJson, Movie.class);
+
+        // Sauvegarde de l'image
+        String imagePath = "C:\\Users\\Lounes\\Documents\\tmp\\images\\" + image.getOriginalFilename();
+        Files.copy(image.getInputStream(), Paths.get(imagePath), StandardCopyOption.REPLACE_EXISTING);
+
+        movie.setImageUrl(imagePath);
         return movieService.addMovie(movie);
     }
+
 
     // Réservé aux admins pour supprimer un film
     @Operation(summary = "Supprimer un film", description = "Supprime un film par son ID.")

@@ -1,0 +1,208 @@
+/* Corps global */
+body {
+  margin-top: 60px; /* Compense la hauteur de la barre de navigation */
+  background-color: #141414; /* Couleur de fond sombre */
+  color: #fff; /* Texte blanc pour contraste */
+  font-family: 'Roboto', Arial, sans-serif; /* Typographie principale */
+}
+
+/* Titres principaux */
+h1 {
+  color: #e50914; /* Rouge Netflix pour les titres */
+  text-align: center; /* Centrer le titre */
+  margin-bottom: 20px;
+}
+
+/* Boutons principaux */
+.btn-primary {
+  background-color: #e50914; /* Rouge Netflix */
+  border: none;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px; /* Coins arrondis */
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s; /* Animation fluide */
+}
+
+.btn-primary:hover {
+  background-color: #b20710; /* Rouge plus foncé */
+  transform: scale(1.1); /* Légère expansion */
+}
+
+.btn-secondary {
+  background-color: #555; /* Gris secondaire */
+  border: none;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px; /* Coins arrondis */
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #333; /* Gris plus foncé */
+  transform: scale(1.05);
+}
+
+/* Barre de navigation */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px; /* Hauteur définie */
+  background-color: #141414; /* Fond noir */
+  z-index: 1000; /* S'assurer qu'elle est visible */
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Légère ombre */
+}
+
+.logo {
+  height: 40px;
+}
+
+.nav-links {
+  margin-left: auto;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.nav-link.active {
+  border-bottom: 2px solid #e50914; /* Lien actif */
+}
+
+/* Conteneur de recherche et filtres */
+.search-and-filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  gap: 15px;
+}
+
+.search-bar {
+  padding: 10px;
+  border: 1px solid #e50914;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #141414;
+  width: 300px; /* Taille fixe */
+}
+
+.search-bar::placeholder {
+  color: #e50914;
+}
+
+.filter-dropdown {
+  padding: 10px;
+  border: 1px solid #e50914;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #141414;
+}
+
+/* Conteneur principal pour les détails */
+.movie-detail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #141414; /* Fond sombre */
+  color: #fff;
+  padding: 20px;
+  min-height: calc(100vh - 60px); /* Ajuste la hauteur avec la barre de navigation */
+}
+
+.movie-detail-card {
+  display: flex;
+  flex-direction: row;
+  background-color: #1f1f1f; /* Fond des cartes */
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Ombre */
+}
+
+.movie-detail-img {
+  width: 300px; /* Largeur fixe pour l'image */
+  height: auto;
+  object-fit: cover; /* Conserve les proportions */
+  border-right: 1px solid #333; /* Ligne entre l'image et le texte */
+}
+
+.movie-detail-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.movie-title {
+  font-size: 2rem;
+  color: #e50914; /* Rouge Netflix */
+  margin-bottom: 10px;
+}
+
+.movie-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.btn-return {
+  background-color: #e50914; /* Rouge Netflix */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-return:hover {
+  background-color: #b20710; /* Rouge plus foncé */
+}
+
+/* Grille de films */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Cartes responsives */
+  gap: 20px; /* Espacement entre les cartes */
+  padding: 20px;
+}
+
+.card {
+  background-color: #1f1f1f; /* Couleur des cartes */
+  border-radius: 10px; /* Coins arrondis */
+  transition: transform 0.3s; /* Animation au survol */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Ombre */
+}
+
+.card:hover {
+  transform: scale(1.05); /* Agrandissement au survol */
+}
+
+.card-title,
+.card-text {
+  color: #fff;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 300px;
+  object-fit: cover; /* Proportions constantes */
+  border-radius: 10px 10px 0 0;
+}
